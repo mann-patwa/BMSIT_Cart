@@ -1,0 +1,47 @@
+  <!-- 
+    - #HEADER
+  -->
+
+  <header class="header" data-header>
+    <div class="container">
+
+      <a href="/" class="logo">
+        <!-- <img src="/images/LAB.png" width="132" height="27" alt="shoppie home"> -->
+         <h2>BMSIT Cart</h2>
+      </a>
+
+      <nav class="navbar" data-navbar>
+        <ul class="navbar-list">
+          <li>
+            <button onclick = "simulateWebpageMovement()" class="navbar-link">Bot Movement</button>
+          </li>
+
+          <li>
+            <a href="/" class="navbar-link">Home</a>
+          </li>
+          
+
+
+          <li>
+            <a href="/shop" class="navbar-link">Shop</a>
+          </li>
+
+        </ul>
+
+        <a href="/cart"><button class="cart-btn" >
+          <ion-icon name="bag" aria-hidden="true"></ion-icon>
+
+          <span class="span">Cart (<%= cartItemsCount  %>)</span>
+        </button></a>
+
+        <a href="/contactUs" class="btn">Contact Us</a>
+      </nav>
+
+      <button class="nav-open-btn" aria-label="toggle menu" data-nav-toggler>
+        <ion-icon name="menu-outline" aria-hidden="true"></ion-icon>
+      </button>
+
+    </div>
+  </header>
+
+

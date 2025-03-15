@@ -1,0 +1,241 @@
+<footer class="footer">
+    <div class="container">
+
+      <div class="footer-top">
+
+        <div class="footer-brand">
+
+          <a href="#" class="logo">
+            <!-- <img src="/images/LAB.png" width="132" height="27" loading="lazy" alt="shoppie home"> -->
+             <h2>BMSIT Cart</h2>
+          </a>
+
+          <p class="footer-text">
+            Main factor that sets us apart competition allows to deliver a specialist business service applies
+            its ranging experience
+          </p>
+
+          <ul class="social-list">
+
+            <li>
+              <a href="#" class="social-link">
+                <ion-icon name="logo-facebook"></ion-icon>
+              </a>
+            </li>
+
+            <li>
+              <a href="#" class="social-link">
+                <ion-icon name="logo-twitter"></ion-icon>
+              </a>
+            </li>
+
+            <li>
+              <a href="#" class="social-link">
+                <ion-icon name="logo-linkedin"></ion-icon>
+              </a>
+            </li>
+
+          </ul>
+
+        </div>
+
+        <ul class="footer-list">
+
+          <li>
+            <p class="footer-list-title title" href="/contactUs">Contact info</p>
+
+            <address class="footer-text">
+              BMS Institute of Technology and Management, Doddaballapur Main Road, Avalahalli, Yelahanka, Bengaluru - 560064 <br>
+              INDIA
+            </address>
+          </li>
+
+          <li>
+            <a href="mailto:info.shoppie@support.com" class="email">info.bmsitcart@support.com</a>
+          </li>
+
+          <li>
+            <a href="tel:+00 123 456 789" class="call">+91123456789</a>
+          </li>
+
+        </ul>
+
+        <div class="footer-list">
+
+          <p class="footer-list-title title">Subscribe newsletter</p>
+
+          <input type="email" name="email_address" placeholder="Enter your email address" required autocomplete="off"
+            class="input-field">
+
+          <button class="btn btn-secondary">Subscribe</button>
+
+        </div>
+
+      </div>
+
+      <div class="footer-bottom">
+
+        <div class="wrapper">
+          <div class="link-wrapper">
+
+            <a href="#" class="footer-bottom-link">Portfolio</a>  
+            <a href="#" class="footer-bottom-link">Pricing Plan</a>
+            <a href="#" class="footer-bottom-link">Services</a>
+            <a  class="footer-bottom-link" href="/contactUs">Contact Us</a>
+
+          </div>
+
+          <div class="link-wrapper">
+            <a href="#" class="footer-bottom-link">Terms & Conditions</a>
+
+            <a href="#" class="footer-bottom-link">Privacy Policy</a>
+          </div>
+        </div>
+
+        <p class="copyright">
+          &copy; 2024 BMSIT Cart, All Rights Reserved
+        </p>
+
+      </div>
+
+      
+
+    </div>
+  </footer>
+
+  <!-- all the canvas and bot simulaton functionality 
+  starts here in the footer
+will check bot or human 
+  on home page
+  
+  
+  -->
+    <canvas id="overlayCanvas"></canvas>
+
+
+  <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@4.0.0/dist/tf.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@chrisgdt/delbot-mouse@1.1.2/dist/delbot.js"></script>
+  <script>
+    const canvas = document.getElementById("overlayCanvas");
+        const ctx = canvas.getContext("2d");
+        const recorder = new delbot.Recorder(window.screen.width, window.screen.height);
+        let isRunning = false;
+        var drawing = true;
+
+        function resizeCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+        window.addEventListener("resize", resizeCanvas);
+        resizeCanvas();
+
+        function simulateWebpageMovement() {
+            if (isRunning) return;
+            isRunning = true;
+
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            recorder.clearRecord();
+            ctx.beginPath();
+
+            let x = Math.random() * window.innerWidth;
+            let y = Math.random() * window.innerHeight;
+            ctx.moveTo(x, y);
+
+            recorder.addRecord({
+                time: performance.now(),
+                x: x,
+                y: y,
+                type: "Pressed"
+            });
+
+            let moves = 0;
+
+            function moveBot() {
+                if (!isRunning) return;
+                moves += 1;
+
+                x += (Math.random() - 0.5) * 300; // Larger step for bigger movement
+                y += (Math.random() - 0.5) * 300;
+
+                x = Math.max(10, Math.min(window.innerWidth - 10, x));
+                y = Math.max(10, Math.min(window.innerHeight - 10, y));
+
+                ctx.lineTo(x, y);
+                ctx.stroke();
+
+                recorder.addRecord({
+                    time: performance.now(),
+                    x: x,
+                    y: y,
+                    type: "Move"
+                });
+
+                if (moves > 100) {
+                    isRunning = false;
+                    recorder.addRecord({
+                        time: performance.now(),
+                        x: x,
+                        y: y,
+                        type: "Released"
+                    });
+                    return;
+
+                }
+
+                setTimeout(moveBot, Math.random() * 100 + 50);
+            }
+
+            moveBot();
+        }
+        document.addEventListener("mousemove", (event) => {
+          // console.log(event.clientX)
+          console.log(event.clientX,event.clientY);
+            if (drawing) {
+                // const rect = canvas.getBoundingClientRect();
+                // ctx.lineTo(event.clientX - rect.left, event.clientY - rect.top);
+                // ctx.stroke();
+                recorder.addRecord({
+                    time: event.timeStamp,
+                    x: event.clientX ,
+                    y: event.clientY,
+                    type: "Move"
+                });
+            }
+        })
+
+        async function checkHuman() {
+            if (recorder.getRecords().length > 100) {
+                const isHuman = await recorder.isHuman(delbot.Models.rnn1, 0.65, false, true);
+                alert(isHuman.result ? "You can continue accessing this website" : "You cannot access this website");
+                if (isHuman.result == false){
+                  window.location.replace("http://www.google.com");
+                }else{
+                  // drawing = false;
+                }
+                recorder.clearRecord();
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+            }
+        }
+        setInterval(() => {
+            checkHuman();
+        }, 3000);
+
+  </script>
+
+
+
+  <!-- 
+    - custom js link
+  -->
+  <script src="/js/script.js"></script>
+
+  <!-- 
+    - ionicon link
+  -->
+  <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+  <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+  
+
+</body>
+
+</html>

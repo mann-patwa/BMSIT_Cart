@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- 
+    - primary meta tags
+  -->
+  <title>BMSIT Cart</title>
+  <meta name="title" content="Shoppie - Man summer collection">
+  <meta name="description" content="This is an eCommerce html template made by codewithsadee">
+
+  <!-- 
+    - favicon
+  -->
+  <link rel="shortcut icon" href="./images/favicon.svg" type="image/svg+xml">
+
+  <!-- 
+    - google font link
+  -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="./fonts/font.css">
+
+  <!-- 
+    - custom css link
+  -->
+  <link rel="stylesheet" href="./css/index.css">
+
+  <!-- 
+    - preload images
+  -->
+  <link rel="preload" as="image" href="./images/hero-banner.png">
+  <style>
+        body {
+            position: relative;
+            height: 200vh; /* Increased height to allow scrolling */
+            width: 100%;
+            margin: 0;
+            background-color: #f9f9f9;
+            overflow-x: hidden;
+        }
+        #overlayCanvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            pointer-events: none; /* Allows interaction with elements below */
+        }
+        .buttons {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 10px;
+        }
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+        }
+    </style>
+</head>
+
+<body>
+
+  <!-- 
+    - #HEADER
+  -->
+
+<%- include('partials/navbar') %>
+
+
+
+
+
+  <main>
+    <article>
+
+      <!-- 
+        - #HERO
+      -->
+
+      <div class="hero">
+        <div class="container">
+
+          <div class="hero-content">
+
+            <p class="hero-subtitle title"><%- allProducts[4].price %></p>
+
+            <h1 class="h1 hero-title title">Pen<br> collection</h1>
+
+            <p class="hero-text">
+              Empowering your ideas, one stroke at a time – find the perfect pen for every thought!
+            </p>
+
+            <a href="/shop" class="btn btn-primary">
+              <span class="span">Shop Now</span>
+
+              <ion-icon name="arrow-forward" aria-hidden="true"></ion-icon>
+            </a>
+
+          </div>
+
+          <div class="hero-banner">
+            <figure class="img-holder" style="--width: 704; --height: 700;">
+              <img class="firstimg" src="<%- allProducts[4].image %>" width="704" height="700" alt="hero banner" class="img-cover">
+            </figure>
+
+            <!-- <img src="./images/hero-shape-1.png" width="255" height="249" alt="shape" class="shape shape-1"> -->
+          </div>
+
+          <!-- <img src="./images/hero-shape-2.png" width="360" height="133" alt="shape" class="shape shape-2"> -->
+
+        </div>
+      </div>
+
+
+
+
+
+      <!-- 
+        - #PRODUCT
+      -->
+
+      <section class="section product" aria-label="product">
+        <div class="container">
+
+          <h2 class="h2 section-title title text-center">Explore new arrivals</h2>
+
+          <ul class="product-list has-scrollbar">
+            <% for(var i=0; i<((allProducts.length)/2)-1; i++) {%>
+              <li class="scrollbar-item">
+                <div class="product-card text-center">
+
+                  <div class="card-banner">
+
+                    <figure class="product-banner img-holder" style="--width: 448; --height: 470;">
+                      <img src="<%- allProducts[i].image %>" width="448" height="470" loading="lazy"
+                        alt="Short Sleeve Shirt" class="img-cover">
+                    </figure>
+
+                    <a href="/addInCart/<%- allProducts[i].id %>" class="btn product-btn">
+                      <ion-icon name="bag" aria-hidden="true"></ion-icon>
+
+                      <span class="span">Add To Cart</span>
+                    </a>
+
+                  </div>
+
+                  <div class="card-content">
+
+                    <h3 class="h4 title">
+                      <a href="/shop/<%- allProducts[i].id %>" class="card-title"><%= allProducts[i].name %></a>
+                    </h3>
+
+                    <span class="price"><%= allProducts[i].price%></span>
+
+                  </div>
+
+                </div>
+              </li>
+            <% } %>
+
+          </ul>
+
+        </div>
+      </section>
+
+
+
+
+<!-- 
+
+
+      <!-- 
+        - #OFFER
+      -->
+
+      <section class="offer has-bg-image" style="background-image: url('./images/mypic3.png')">
+        <div class="container">
+
+          <div class="offer-card">
+
+            <h2 class="title card-title">35% Off</h2>
+
+            <p class="card-text">
+              This is the main factor that sets us apart our competition and allows us deliver a specialist business
+              consultancy service
+            </p>
+
+            <a href="/shop" class="btn btn-secondary">
+              <span class="span">Shop Now</span>
+
+              <ion-icon name="arrow-forward" aria-hidden="true"></ion-icon>
+            </a>
+
+          </div>
+
+        </div>
+      </section>
+
+    </article>
+  </main>
+
+  
+  
+
+
+
+
+
+  <!-- 
+    - #FOOTER
+  -->
+  <%- include('partials/footer') %>

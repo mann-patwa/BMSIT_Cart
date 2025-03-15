@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- 
+    - primary meta tags
+  -->
+  <title>Shop</title>
+  <meta name="title" content="Shoppie - Man summer collection">
+  <meta name="description" content="This is an eCommerce html template made by codewithsadee">
+
+  <!-- 
+    - favicon
+  -->
+  <link rel="shortcut icon" href="./images/favicon.svg" type="image/svg+xml">
+
+  <!-- 
+    - google font link
+  -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="./fonts/font.css">
+
+  <!-- 
+    - custom css link
+  -->
+  <link rel="stylesheet" href="./css/index.css">
+  <link rel="stylesheet" href="./css/contactUs.css">
+
+
+  <!-- 
+    - preload images
+  -->
+  <link rel="preload" as="image" href="./images/hero-banner.png">
+
+</head>
+<body>
+	<!-- Header section -->
+	<%- include('partials/navbar')%>
+
+	<!-- banner section -->
+	<section class="banner">
+        <br><br><br><br><br><br>
+		<h1>Get in Touch With Us</h1>
+		<p>
+		We're here to answer any questions you may have.
+		</p>
+	</section>
+
+	<!-- Contact form -->
+	<section class="contact-form">
+		<div class="form-container">
+			<h2>Your Details</h2>
+			<form action="/contactUs" method="POST">
+
+				<label for="name">Name: </label>
+				<input type="text" id="name" name="name" required>
+
+				<label for="email">Email: </label>
+				<input type="email" id="email" name="email" required>
+
+				<label for="phone">Phone: </label>
+				<input type="tel" id="phone" name="phone">
+
+				<label for="message">Message: </label>
+				<textarea id="message" name="message" rows="4" required></textarea>
+
+				<button type="submit" class="submit-button">Submit</button>
+			</form>
+		</div>
+	</section>
+
+	<!-- Company contact info -->
+    <%- include('partials/footer') %>
